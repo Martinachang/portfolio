@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chang Chu-Pei 張主佩, UI/UX designer and researcher</title>
+  <meta name="description" content="Portfolio of Chang Chu-Pei, UI/UX designer and researcher in Taipei. Case study: FeetMine, a parent-child shoe-selection app.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Every element with data-text="a.b.c" gets its words from content.js.
+       Lists (timeline, tabs, quotes, skills) are drawn by script.js into the empty elements with an id. -->
+
+  <a class="skip" href="#work" data-text="site.skip"></a>
+
+  <header class="topbar">
+    <a class="brand" href="#top"><span data-text="site.name"></span> <small data-text="site.nameOther"></small></a>
+    <div class="lang" role="group" aria-label="Language / 語言">
+      <button type="button" data-lang="en" lang="en">EN</button>
+      <button type="button" data-lang="zh" lang="zh-Hant">中文</button>
+    </div>
+    <nav>
+      <a href="#work" data-text="site.nav.work"></a>
+      <a href="#about" data-text="site.nav.about"></a>
+      <a href="#skills" data-text="site.nav.skills"></a>
+      <a href="#contact" data-text="site.nav.contact"></a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- The desk. Four objects, each one leads to a section. On wide screens you can drag them. -->
+    <section class="desk" aria-labelledby="headline">
+      <div class="wrap desk-grid">
+        <div class="desk-copy">
+          <h1 id="headline" data-text="desk.headline"></h1>
+          <p data-text="desk.intro"></p>
+          <p class="hint" data-text="desk.hint"></p>
+        </div>
+
+        <div class="desk-objects">
+          <a class="object folder" href="#work" draggable="false">
+            <span class="folder-tab" data-text="desk.folder.tab"></span>
+            <span class="folder-title" data-text="project.name"></span>
+            <span class="folder-title" data-text="project.nameZh"></span>
+            <span class="folder-caption" data-text="desk.folder.caption"></span>
+            <img class="folder-mascot" src="img/mascot.jpg" width="251" height="300" alt="" draggable="false">
+          </a>
+
+          <a class="object badge" href="#about" draggable="false">
+            <img src="img/profile.jpg" width="527" height="700" data-alt="about.photoAlt" alt="" draggable="false">
+            <span class="badge-name" data-text="site.name"></span>
+            <span class="badge-role" data-text="site.role"></span>
+            <span class="object-link" data-text="desk.badge.tab"></span>
+          </a>
+
+          <a class="object note" href="#skills" draggable="false">
+            <span class="note-title" data-text="desk.note.tab"></span>
+            <ul id="note-lines"></ul>
+          </a>
+
+          <a class="object postcard" href="#contact" draggable="false">
+            <span class="stamp" data-text="site.location"></span>
+            <span class="postcard-title" data-text="desk.postcard.title"></span>
+            <span class="postcard-body" data-text="desk.postcard.body"></span>
+            <span class="object-link" data-text="desk.postcard.tab"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work: the FeetMine case study. -->
+    <section id="work" class="section project" aria-labelledby="project-name">
+      <div class="wrap">
+        <div class="project-head">
+          <div>
+            <h2 id="project-name"><span data-text="project.name"></span> <span class="zh-name" data-text="project.nameZh"></span></h2>
+            <p class="tagline" data-text="project.tagline"></p>
+            <ul class="tags" id="project-tags"></ul>
+            <dl class="facts" id="project-facts"></dl>
+          </div>
+          <figure class="cover"><img src="img/feetmine-cover.jpg" width="995" height="1200" loading="lazy" data-alt="project.coverAlt" alt=""></figure>
+        </div>
+
+        <!-- The quote demo. -->
+        <div class="insights">
+          <h3 data-text="project.insights.title"></h3>
+          <p data-text="project.insights.lead"></p>
+          <div class="insights-grid">
+            <div class="quotes" id="quotes"></div>
+            <div class="decision" id="decision" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- The phases, one tab each. -->
+        <div class="tabs" role="tablist" id="tablist"></div>
+        <div id="panels"></div>
+      </div>
+    </section>
+
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="about-grid">
+          <figure><img src="img/profile.jpg" width="527" height="700" data-alt="about.photoAlt" alt=""></figure>
+          <div>
+            <h2 id="about-title" data-text="about.greeting"></h2>
+            <div id="bio"></div>
+          </div>
+        </div>
+        <div class="cv">
+          <div>
+            <h3 data-text="about.experienceTitle"></h3>
+            <ol class="timeline" id="experience"></ol>
+          </div>
+          <div>
+            <h3 data-text="about.educationTitle"></h3>
+            <ol class="timeline" id="education"></ol>
+            <h3 data-text="about.workTitle"></h3>
+            <ol class="timeline" id="work-history"></ol>
+            <h3 data-text="about.languagesTitle"></h3>
+            <ul class="plain" id="languages"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="wrap">
+        <h2 id="skills-title" data-text="skills.title"></h2>
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="wrap">
+        <div class="postcard-big">
+          <span class="stamp" data-text="site.location"></span>
+          <h2 id="contact-title" data-text="contact.title"></h2>
+          <p data-text="contact.body"></p>
+          <a class="button" id="mail-link" href="#"><span data-text="contact.button"></span></a>
+          <p class="email" data-text="site.email"></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer><p data-text="site.footer"></p></footer>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
