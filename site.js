@@ -43,9 +43,33 @@ langButtons.forEach((button) => button.addEventListener("click", () => setLangua
 function render() {
   // Elements with data-text="a.b.c" get that string from content.js. Same for data-alt on images.
   document.querySelectorAll("[data-text]").forEach((el) => { el.textContent = t(get(el.dataset.text)); });
+  document.querySelectorAll("[data-html]").forEach((el) => { el.innerHTML = t(get(el.dataset.html)); }); // the headline, which has <em> in it
   document.querySelectorAll("[data-alt]").forEach((el) => { el.alt = t(get(el.dataset.alt)); });
   renderPage(); // the lists only this page has, see home.js or project.js
 }
+
+// ---------- Gliding to a section ----------
+
+// A link to a place on this page (href="#work") glides there instead of jumping.
+// The skip link keeps the browser's own jump so keyboard users land on the section at once.
+const SCROLL_TIME = 1200; // milliseconds
+document.addEventListener("click", (event) => {
+  const link = event.target.closest('a[href^="#"]:not(.skip)');
+  const target = link && link.hash.length > 1 && document.querySelector(link.hash);
+  if (!target || event.defaultPrevented) return;
+  event.preventDefault();
+  const from = window.scrollY;
+  const to = target.getBoundingClientRect().top + from - document.querySelector(".topbar").offsetHeight;
+  const started = performance.now();
+  function step(now) {
+    const p = Math.min((now - started) / SCROLL_TIME, 1);           // 0 at the start, 1 at the end
+    const eased = p < 0.5 ? 2 * p * p : 1 - (2 - 2 * p) ** 2 / 2;  // slow start, slow finish
+    window.scrollTo({ top: from + (to - from) * eased, behavior: "instant" });
+    if (p < 1) requestAnimationFrame(step);
+    else history.replaceState(null, "", link.hash);                 // the address bar shows #work, as a normal jump would
+  }
+  requestAnimationFrame(step);
+});
 
 // Start once the whole page, including the page's own script, has loaded.
 document.addEventListener("DOMContentLoaded", () => setLanguage(localStorage.getItem("lang") || "en"));

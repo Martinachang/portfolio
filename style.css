@@ -66,17 +66,24 @@ button { font: inherit; color: inherit; }
   background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
+/* The name at the left; the section links and the language switch together at the right.
+   The links have a fixed width, so the switch stays put when the words change length. */
 .brand { margin-right: auto; font-size: 20px; color: var(--ink); text-decoration: none; }
 .brand small { font-size: 14px; color: var(--ink-soft); margin-left: 6px; }
-.topbar nav { display: flex; gap: 20px; }
-.topbar nav a { color: var(--ink); text-decoration: none; font-weight: 500; }
+.topbar nav { display: flex; gap: 4px; }
+.topbar nav a { min-width: 4.5em; padding: 4px 0; text-align: center; color: var(--ink); text-decoration: none; font-weight: 500; }
 .topbar nav a:hover { color: var(--blue); }
 .lang { display: flex; padding: 2px; border: 1.5px solid var(--ink); border-radius: 999px; }
 .lang button { padding: 4px 12px; border: 0; border-radius: 999px; background: none; font-size: 14px; cursor: pointer; }
 .lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
-/* On phones the nav drops to its own row under the name. */
+/* On phones the name takes the first row; the links and the language switch share the second. */
 @media (max-width: 639px) {
-  .topbar nav { order: 3; flex-basis: 100%; gap: 16px; font-size: 15px; }
+  .topbar { gap: 8px 12px; }
+  .brand { flex-basis: 100%; }
+  .topbar nav { gap: 12px; font-size: 15px; }
+  .topbar nav a { min-width: 0; }
+  .lang { margin-left: auto; }
+  .lang button { padding: 4px 10px; }
 }
 
 /* ---------- The desk ---------- */
@@ -85,7 +92,10 @@ button { font: inherit; color: inherit; }
 .desk-grid { display: grid; gap: 40px; padding-block: 48px; }
 .desk-copy { position: relative; z-index: 1; }
 .desk-copy p { margin-top: 24px; font-size: 18px; color: var(--ink-soft); max-width: 40ch; }
+.desk-copy .greeting { margin: 0 0 12px; font-family: var(--font-display); color: var(--ink); }
 .desk-copy .hint { font-size: 15px; }
+h1 em { font-style: normal; color: var(--blue); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* The big pale rings behind the desk and the project, like the arcs in the FeetMine slides. */
 .desk::before, .desk::after, .project::before {
@@ -112,6 +122,10 @@ button { font: inherit; color: inherit; }
 .folder-title, .folder-caption, .badge-name, .badge-role, .note-title, .postcard-title, .postcard-body { display: block; }
 @keyframes drop {
   from { opacity: 0; translate: 0 -40px; rotate: 0deg; }
+}
+/* The bob uses transform, not translate, because dragging sets translate by hand (home.js). */
+@keyframes float {
+  50% { transform: translateY(-7px); }
 }
 
 /* The work folder. home.js gives it the newest project's colours. */
@@ -141,11 +155,11 @@ button { font: inherit; color: inherit; }
 .badge-name { margin-top: 12px; font-size: 18px; }
 .badge-role { font-size: 12px; line-height: 1.4; color: var(--ink-soft); }
 
-/* The sticky note. */
+/* The sticky note: a title and a grid of tool logos. */
 .note { padding: 18px 18px 20px; border-radius: 4px; background: var(--blue-wash); }
-.note-title { margin-bottom: 8px; font-size: 17px; }
-.note ul { font-size: 14px; line-height: 1.7; color: var(--ink-soft); }
-.note li::before { content: "– "; }
+.note-title { margin-bottom: 12px; font-size: 17px; }
+.note-logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 10px; }
+.note-logos img { width: 100%; height: 34px; object-fit: contain; } /* contain: the Canva wordmark is wide, the others are square */
 
 /* The postcard. */
 .postcard { grid-column: 1 / -1; padding: 20px 22px; border-radius: 6px; }
@@ -159,24 +173,26 @@ button { font: inherit; color: inherit; }
 .postcard-title { font-size: 13px; color: var(--ink-soft); }
 .postcard-body { margin-top: 8px; font-size: 24px; max-width: 70%; }
 
-/* ---------- Work: the list of projects (home page) ---------- */
+/* ---------- Work: one panel per project (home page) ---------- */
 
 .lead { margin: 8px 0 32px; font-size: 18px; color: var(--ink-soft); }
 .work-grid { display: grid; gap: 28px; }
-/* One card per project. The card's --accent comes from content.js (see home.js). */
+/* The panel wears the project's colours: --accent and --accent-wash come from content.js (see home.js). */
 .work-card {
-  display: block; overflow: hidden;
+  display: grid; gap: 32px;
+  padding: clamp(24px, 4vw, 48px);
   color: var(--ink); text-decoration: none;
-  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  background: var(--accent-wash); border-radius: 24px;
   transition: box-shadow 0.2s, translate 0.2s;
 }
 .work-card:hover, .work-card:focus-visible { box-shadow: var(--shadow-lifted); translate: 0 -4px; }
-.work-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.work-card-body { padding: 22px 24px 26px; }
-.work-card h3 { font-size: 24px; }
-.work-card p { margin: 6px 0 14px; font-size: 15px; color: var(--ink-soft); }
-.work-card .tags { margin-bottom: 16px; }
-.read { font-weight: 500; color: var(--accent); }
+.work-card .eyebrow { display: block; margin-bottom: 14px; font-family: var(--font-display); font-size: 18px; }
+.work-card h3 { font-size: clamp(26px, 3vw, 36px); max-width: 18ch; }
+.work-card p { margin: 14px 0 20px; color: var(--ink-soft); }
+.work-card img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); }
+.stats { display: flex; flex-wrap: wrap; align-items: end; gap: 16px 40px; margin: 24px 0 0; }
+.stats dt { font-size: 14px; font-weight: 500; max-width: 18ch; }
+.stats dd { margin: 4px 0 0; font-family: var(--font-display); font-size: clamp(36px, 4vw, 48px); line-height: 1; color: var(--accent); }
 
 /* ---------- Work: a project page ---------- */
 
@@ -189,6 +205,7 @@ button { font: inherit; color: inherit; }
 .tagline { margin: 8px 0 16px; font-size: 20px; color: var(--ink-soft); }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .tags li { padding: 4px 14px; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--card); font-size: 14px; font-weight: 500; }
+.tags img { display: inline; height: 16px; width: auto; margin-right: 6px; vertical-align: -3px; } /* width: auto lets the Canva wordmark be wide */
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin: 0; }
 .facts dt { font-size: 13px; font-weight: 500; color: var(--accent); }
 .facts dd { margin: 0; font-size: 15px; }
@@ -256,11 +273,22 @@ button { font: inherit; color: inherit; }
 .timeline .detail { display: block; font-size: 13px; color: var(--ink-soft); }
 .plain { font-size: 15px; }
 
-/* ---------- Skills ---------- */
+/* ---------- How I work: three numbered steps joined by a line ---------- */
 
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-top: 32px; }
-.skills-grid h3 { margin-bottom: 10px; font-size: 20px; }
-.skills-grid ul { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
+.steps { display: grid; gap: 40px; counter-reset: step; }
+.steps > li { position: relative; padding-left: 68px; }
+.steps > li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--blue-wash); color: var(--blue);
+  font-family: var(--font-display); font-size: 20px;
+}
+.steps > li:not(:last-child)::after { content: ""; position: absolute; left: 21px; top: 52px; bottom: -32px; width: 2px; background: var(--blue-wash); }
+.steps h3 { margin-bottom: 8px; font-size: 22px; line-height: 44px; }
+.steps p { color: var(--ink-soft); max-width: 60ch; }
+.steps .tags { margin: 0; }
+.steps .tags li { font-size: 13px; padding: 3px 12px; }
 
 /* ---------- Contact ---------- */
 
@@ -276,6 +304,8 @@ button { font: inherit; color: inherit; }
   font-weight: 500; text-decoration: none;
 }
 .button:hover { background: color-mix(in srgb, var(--blue) 85%, black); }
+.button.outline { background: none; border: 2px solid var(--ink); color: var(--ink); padding-block: 10px; }
+.button.outline:hover { background: var(--card); }
 .email { margin: 16px 0 0; font-size: 15px; color: var(--ink-soft); }
 
 footer { padding: 32px var(--gutter); font-size: 14px; color: var(--ink-soft); text-align: center; }
@@ -290,16 +320,17 @@ footer p { margin: 0; max-width: none; }
     position: absolute;
     rotate: var(--tilt);
     cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
-    animation: drop 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
-    animation-delay: calc(var(--i) * 110ms);
+    animation: drop 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards, float 3.6s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 110ms), calc(var(--i) * -0.9s);
   }
+  .object:hover, .object.lifted { animation-play-state: running, paused; } /* holding it stops the bob */
   .folder   { --tilt: -3deg; --i: 0; top: 6%;  left: 40%; width: 320px; }
   .badge    { --tilt: 4deg;  --i: 1; top: 16%; left: 4%;  width: 186px; }
   .note     { --tilt: -5deg; --i: 2; top: 40%; left: 64%; width: 196px; }
   .postcard { --tilt: 2deg;  --i: 3; top: 70%; left: 26%; width: 290px; }
 
   .timeline li { grid-template-columns: 8.5em 1fr; gap: 12px; }
-  .work-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .work-card { grid-template-columns: 1.1fr 1fr; align-items: center; }
 }
 
 @media (min-width: 900px) {

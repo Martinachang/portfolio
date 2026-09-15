@@ -15,7 +15,7 @@ const content = {
     nav: {
       work: { en: "Work", zh: "作品" },
       about: { en: "About", zh: "關於" },
-      skills: { en: "Skills", zh: "技能" },
+      skills: { en: "Process", zh: "流程" },
       contact: { en: "Contact", zh: "聯絡" },
     },
     footer: { en: "Designed and built by Chang Chu-Pei.", zh: "由張主佩設計與製作。" },
@@ -23,10 +23,13 @@ const content = {
 
   // The home page is a desk. Each object on it leads to one section.
   desk: {
+    greeting: { en: "Hi, I'm Chu-Pei 👋", zh: "嗨，我是主佩 👋" },
+    // The headline is the one string that may contain HTML: <em> marks the words in colour.
     headline: {
-      en: "Even a single user's insight can make a profound impact on design.",
-      zh: "即使只是一位使用者的洞察，也能深深改變一個設計。",
+      en: "Even <em>a single user's insight</em> can make a profound impact on design.",
+      zh: "即使只是<em>一位使用者的洞察</em>，也能深深改變一個設計。",
     },
+    cta: { en: "See my work", zh: "看看作品" },
     intro: {
       en: "UI/UX designer and researcher in Taipei. Four years of interviews, prototypes and usability tests, and one exchange semester in Kyoto.",
       zh: "台北的 UI/UX 設計師與研究員。四年的訪談、原型與易用性測試，以及在京都交換的一個學期。",
@@ -37,12 +40,7 @@ const content = {
     },
     note: {
       tab: { en: "Skills & tools", zh: "技能與工具" },
-      lines: [
-        { en: "interviews and personas", zh: "訪談與人物誌" },
-        { en: "usability tests", zh: "易用性測試" },
-        { en: "Figma prototypes", zh: "Figma 原型" },
-        { en: "illustration and motion", zh: "插畫與動態圖像" },
-      ],
+      tools: ["Figma", "Adobe XD", "Miro", "Illustrator", "Photoshop", "Canva"], // shown as logos, see content.logos
     },
     postcard: {
       tab: { en: "Contact", zh: "聯絡我" },
@@ -70,6 +68,19 @@ const content = {
       nameZh: "合步合腳",
       summary: { en: "A parent-child shoe-selection app", zh: "親子個人化選鞋 App" },
       tagline: { en: "Follow your feet to choose your fit", zh: "跟著腳步，選一雙真正合腳的鞋" },
+      // The panel on the home page: what changed for people, in one line, then one sentence, then two numbers.
+      headline: {
+        en: "From guessing at size charts to a foot profile that fits",
+        zh: "從對著尺寸表猜測，到一份真正合腳的足型檔案",
+      },
+      blurb: {
+        en: "Parents buy their children's shoes and often choose wrong. FeetMine measures a child's feet at home with AR, recommends shoes that fit, and tracks growth.",
+        zh: "童鞋由家長挑選，卻常常買錯。合步合腳用 AR 在家量測孩子的腳，推薦合腳的鞋，並持續記錄成長。",
+      },
+      stats: [
+        { label: { en: "Parents interviewed and tested", zh: "訪談與測試的家長" }, value: "10" },
+        { label: { en: "Journey steps covered, competitors cover 1 or 2", zh: "涵蓋的購鞋步驟，競品只有 1 到 2 步" }, value: "5 / 5" },
+      ],
       tags: [
         { en: "UX research", zh: "使用者研究" },
         "UI/UX",
@@ -359,51 +370,66 @@ const content = {
     languages: ["TOEIC 760", "Linguaskill B2", "JLPT N3"],
   },
 
+  // Tool logos, one SVG file each in img/. A tool named here shows its logo wherever it is listed.
+  logos: {
+    Figma: "img/figma.svg",
+    "Adobe XD": "img/adobe-xd.svg",
+    Illustrator: "img/illustrator.svg",
+    Photoshop: "img/photoshop.svg",
+    "After Effects": "img/after-effects.svg",
+    Canva: "img/canva.svg",
+    Miro: "img/miro.svg",
+    Notion: "img/notion.svg",
+    SPSS: "img/spss.svg",
+  },
+
+  // How I work: three steps, each with a sentence and the methods and tools used at that step.
   skills: {
-    title: { en: "Skills & tools", zh: "技能與工具" },
-    groups: [
+    title: { en: "How I work", zh: "我的工作方式" },
+    lead: { en: "Three steps, and the tools I reach for at each one.", zh: "三個步驟，以及每一步會用到的工具。" },
+    steps: [
       {
-        name: "UI/UX",
-        items: [
-          { en: "Wireframing", zh: "線框圖" },
-          { en: "Prototyping", zh: "原型製作" },
-          { en: "Design system", zh: "設計系統" },
-          { en: "Mockup", zh: "視覺稿" },
-          "Figma",
-          "Adobe XD",
-        ],
-      },
-      {
-        name: { en: "User research", zh: "使用者研究" },
-        items: [
-          { en: "Design thinking", zh: "設計思考" },
+        name: { en: "Understand", zh: "理解" },
+        text: {
+          en: "I start with people, not screens. Interviews, personas and journey maps show where the real problem is, and desk research checks that it is not just one person's problem.",
+          zh: "我從人開始，而不是從畫面開始。訪談、人物誌與旅程地圖找出真正的問題在哪裡，桌面研究則確認它不只是某一個人的問題。",
+        },
+        tools: [
           { en: "Interview", zh: "訪談" },
-          { en: "User story", zh: "使用者故事" },
-          { en: "Journey map", zh: "旅程地圖" },
           { en: "Persona", zh: "人物誌" },
-          { en: "User flow", zh: "使用者流程" },
-          { en: "Usability test", zh: "易用性測試" },
-          "Notion",
-          "Miro",
-          "SPSS",
-          "EndNote",
+          { en: "Journey map", zh: "旅程地圖" },
+          { en: "User story", zh: "使用者故事" },
+          { en: "Design thinking", zh: "設計思考" },
+          "Notion", "Miro", "SPSS", "EndNote",
+          { en: "AI tools", zh: "AI 工具" },
         ],
       },
       {
         name: { en: "Design", zh: "設計" },
-        items: [
-          { en: "Visual design", zh: "視覺設計" },
-          { en: "Graphic design", zh: "平面設計" },
+        text: {
+          en: "User flows first, then wireframes, then a prototype people can hold. I draw my own characters, illustrations and motion, so the interface and its personality come from the same hand.",
+          zh: "先畫使用者流程，再畫線框圖，再做出可以實際操作的原型。角色、插畫與動態都由我自己繪製，讓介面與它的個性出自同一雙手。",
+        },
+        tools: [
+          { en: "User flow", zh: "使用者流程" },
+          { en: "Wireframing", zh: "線框圖" },
+          { en: "Prototyping", zh: "原型製作" },
+          { en: "Design system", zh: "設計系統" },
           { en: "Motion graphics", zh: "動態圖像" },
-          "Photoshop",
-          "Illustrator",
-          "After Effects",
-          "Canva",
+          "Figma", "Adobe XD", "Illustrator", "Photoshop", "After Effects", "Canva",
         ],
       },
       {
-        name: { en: "AI tools", zh: "AI 工具" },
-        items: ["ChatGPT", "Gemini", "Monica", "Claude", "Copilot"],
+        name: { en: "Test", zh: "測試" },
+        text: {
+          en: "Moderated usability tests with real users, then I change what they trip on. In FeetMine, one session replaced six stickers with a single coin.",
+          zh: "與真實使用者進行引導式易用性測試，然後修改他們卡住的地方。在合步合腳裡，一次測試就讓六張貼紙變成了一枚硬幣。",
+        },
+        tools: [
+          { en: "Usability test", zh: "易用性測試" },
+          { en: "Think-aloud", zh: "放聲思考" },
+          { en: "Expert review", zh: "專家評估" },
+        ],
       },
     ],
   },

@@ -8,13 +8,13 @@ Portfolio site for Chang Chu-Pei (張主佩), UI/UX designer and researcher. Bui
 
 ## Files
 
-- `index.html`: the home page. The desk, a Work grid with one card per project, then About, Skills, Contact.
+- `index.html`: the home page. The desk, one Work panel per project, then About, How I work (three steps, `#skills`), Contact.
 - `feetmine.html`: a case-study page. `<body data-project="feetmine">` names its entry in `content.js`. To add a project: copy this file, change `data-project`, add an entry to `content.projects` (newest first; the first one is featured on the desk) and its images.
-- `content.js`: every word on the site, in both languages side by side: `{ en: "...", zh: "..." }`. Plain strings are language-neutral. Each project carries its own `accent` and `accentWash` colours.
-- `site.js` (shared: language, `t()`, `fill()`, `render()`), `home.js` (project cards, profile lists, desk drag), `project.js` (quote demo, phase tabs). Each page script defines `renderPage()`, which `site.js` calls on load and on every language switch.
+- `content.js`: every word on the site, in both languages side by side: `{ en: "...", zh: "..." }`. Plain strings are language-neutral. Each project carries its own `accent` and `accentWash` colours, plus `headline`, `blurb` and `stats` for its panel on the home page. Only `desk.headline` may contain HTML (`<em>`); it is filled through `data-html` instead of `data-text`. `content.logos` maps a tool name to its SVG; any tool with an entry shows the logo.
+- `site.js` (shared: language, `t()`, `fill()`, `render()`, the one-second glide to `#section` links), `home.js` (project cards, profile lists, desk drag), `project.js` (quote demo, phase tabs). Each page script defines `renderPage()`, which `site.js` calls on load and on every language switch.
 - `style.css`: tokens at the top, phone-first rules, then two `@media (min-width: …)` blocks at the end for wider screens. Site accent is blue; `.project`, the folder and the work cards get a project's colours from JS.
 - `test.html`: the runnable check. Open it through a local server; every line must say PASS.
-- `img/`: web-sized figures cropped from `portfolio-example/` (the source deck, 19 slides at 7680×4320, git-ignored). Crop with `sips -c H W --cropOffset Y X`, then `sips -Z <maxpx>`.
+- `img/`: tool logos (`*.svg`, from simple-icons and Wikimedia Commons) and web-sized figures cropped from `portfolio-example/` (the source deck, 19 slides at 7680×4320, git-ignored). Crop with `sips -c H W --cropOffset Y X`, then `sips -Z <maxpx>`.
 
 ## Checking work
 

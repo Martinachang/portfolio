@@ -11,23 +11,23 @@
 </head>
 <body>
   <!-- The home page: the desk, the list of projects, and the profile (about, skills, contact).
-       Every element with data-text="a.b.c" gets its words from content.js.
+       Every element with data-text="a.b.c" gets its words from content.js (data-html for the one string with <em> in it).
        Lists (project cards, timeline, skills) are drawn by home.js into the empty elements with an id. -->
 
   <a class="skip" href="#work" data-text="site.skip"></a>
 
   <header class="topbar">
     <a class="brand" href="#top"><span data-text="site.name"></span> <small data-text="site.nameOther"></small></a>
-    <div class="lang" role="group" aria-label="Language / 語言">
-      <button type="button" data-lang="en" lang="en">EN</button>
-      <button type="button" data-lang="zh" lang="zh-Hant">中文</button>
-    </div>
     <nav>
       <a href="#work" data-text="site.nav.work"></a>
       <a href="#about" data-text="site.nav.about"></a>
       <a href="#skills" data-text="site.nav.skills"></a>
       <a href="#contact" data-text="site.nav.contact"></a>
     </nav>
+    <div class="lang" role="group" aria-label="Language / 語言">
+      <button type="button" data-lang="en" lang="en">EN</button>
+      <button type="button" data-lang="zh" lang="zh-Hant">中文</button>
+    </div>
   </header>
 
   <main id="top">
@@ -36,8 +36,13 @@
     <section class="desk" aria-labelledby="headline">
       <div class="wrap desk-grid">
         <div class="desk-copy">
-          <h1 id="headline" data-text="desk.headline"></h1>
+          <p class="greeting" data-text="desk.greeting"></p>
+          <h1 id="headline" data-html="desk.headline"></h1>
           <p data-text="desk.intro"></p>
+          <p class="actions">
+            <a class="button" href="#work" data-text="desk.cta"></a>
+            <a class="button outline" href="#contact" data-text="contact.button"></a>
+          </p>
           <p class="hint" data-text="desk.hint"></p>
         </div>
 
@@ -60,7 +65,7 @@
 
           <a class="object note" href="#skills" draggable="false">
             <span class="note-title" data-text="desk.note.tab"></span>
-            <ul id="note-lines"></ul>
+            <ul class="note-logos" id="note-logos"></ul>
           </a>
 
           <a class="object postcard" href="#contact" draggable="false">
@@ -73,7 +78,7 @@
       </div>
     </section>
 
-    <!-- Work: one card per project. Each card links to the project's own page. -->
+    <!-- Work: one panel per project, in the project's own colour. Each panel links to the project's own page. -->
     <section id="work" class="section" aria-labelledby="work-title">
       <div class="wrap">
         <h2 id="work-title" data-text="work.title"></h2>
@@ -111,7 +116,8 @@
     <section id="skills" class="section" aria-labelledby="skills-title">
       <div class="wrap">
         <h2 id="skills-title" data-text="skills.title"></h2>
-        <div class="skills-grid" id="skills-grid"></div>
+        <p class="lead" data-text="skills.lead"></p>
+        <ol class="steps" id="steps"></ol>
       </div>
     </section>
 
