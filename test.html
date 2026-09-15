@@ -5,54 +5,71 @@
   <title>Site checks</title>
 </head>
 <body>
-  <!-- Open this page through a local server (VS Code Live Preview works) to check that script.js still works.
+  <!-- Open this page through a local server (VS Code Live Preview works) to check that the scripts still work.
        Every line should say PASS. -->
   <h1>Site checks</h1>
   <pre id="results">running…</pre>
-  <iframe id="site" src="index.html" width="1200" height="900"></iframe>
+  <iframe id="home" src="index.html" width="1200" height="900"></iframe>
+  <iframe id="project" width="1200" height="900"></iframe>
 
   <script>
     const results = [];
     function check(name, ok) { results.push((ok ? "PASS  " : "FAIL  ") + name); }
 
-    const site = document.getElementById("site");
-    site.addEventListener("load", () => {
-      const win = site.contentWindow;
+    const home = document.getElementById("home");
+    const project = document.getElementById("project");
+
+    home.addEventListener("load", () => {
+      const win = home.contentWindow;
       const doc = win.document;
       const $ = (selector) => doc.querySelector(selector);
       try {
+        // 1. Language toggle
+        $('[data-lang="zh"]').click();
+        check("language toggle switches to Chinese", doc.documentElement.lang === "zh-Hant" && $("#headline").textContent.includes("使用者"));
+        $('[data-lang="en"]').click();
+        check("language toggle switches back to English", $("#headline").textContent.startsWith("Even"));
 
-      // 1. Language toggle
-      $('[data-lang="zh"]').click();
-      check("language toggle switches to Chinese", doc.documentElement.lang === "zh-Hant" && $("#headline").textContent.includes("使用者"));
-      $('[data-lang="en"]').click();
-      check("language toggle switches back to English", $("#headline").textContent.startsWith("Even"));
+        // 2. Work list
+        const card = $(".work-card");
+        check("the work list has a card that links to the project page", card !== null && card.getAttribute("href") === "feetmine.html");
 
-      // 2. Quote demo
-      doc.querySelectorAll(".quote")[2].click();
-      check("clicking a quote shows its decision",
-        $("#decision h4").textContent.includes("coin") && doc.querySelectorAll(".quote")[2].getAttribute("aria-pressed") === "true");
-
-      // 3. Phase tabs
-      $("#tablist").dispatchEvent(new win.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
-      check("right arrow opens the next phase",
-        $("#tab-1").getAttribute("aria-selected") === "true" && !$("#panel-1").hidden && $("#panel-0").hidden);
-
-      // 4. Desk drag
-      const folder = $(".folder");
-      folder.setPointerCapture = () => {}; // synthetic pointers cannot be captured
-      const pointer = (type, x, y) =>
-        folder.dispatchEvent(new win.PointerEvent(type, { pointerId: 1, clientX: x, clientY: y, button: 0, bubbles: true }));
-      pointer("pointerdown", 100, 100);
-      pointer("pointermove", 160, 130);
-      pointer("pointerup", 160, 130);
-      const click = new win.MouseEvent("click", { bubbles: true, cancelable: true });
-      folder.dispatchEvent(click);
-      check("dragging moves the folder and does not follow its link", folder.style.translate === "60px 30px" && click.defaultPrevented);
+        // 3. Desk drag
+        const folder = $(".folder");
+        folder.setPointerCapture = () => {}; // synthetic pointers cannot be captured
+        const pointer = (type, x, y) =>
+          folder.dispatchEvent(new win.PointerEvent(type, { pointerId: 1, clientX: x, clientY: y, button: 0, bubbles: true }));
+        pointer("pointerdown", 100, 100);
+        pointer("pointermove", 160, 130);
+        pointer("pointerup", 160, 130);
+        const click = new win.MouseEvent("click", { bubbles: true, cancelable: true });
+        folder.dispatchEvent(click);
+        check("dragging moves the folder and does not follow its link", folder.style.translate === "60px 30px" && click.defaultPrevented);
       } catch (error) {
         results.push("FAIL  " + error);
       }
-      document.getElementById("results").textContent = results.join("\n");
+
+      // Now the project page.
+      project.addEventListener("load", () => {
+        const win = project.contentWindow;
+        const doc = win.document;
+        const $ = (selector) => doc.querySelector(selector);
+        try {
+          // 4. Quote demo
+          doc.querySelectorAll(".quote")[2].click();
+          check("clicking a quote shows its decision",
+            $("#decision h4").textContent.includes("coin") && doc.querySelectorAll(".quote")[2].getAttribute("aria-pressed") === "true");
+
+          // 5. Phase tabs
+          $("#tablist").dispatchEvent(new win.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
+          check("right arrow opens the next phase",
+            $("#tab-1").getAttribute("aria-selected") === "true" && !$("#panel-1").hidden && $("#panel-0").hidden);
+        } catch (error) {
+          results.push("FAIL  " + error);
+        }
+        document.getElementById("results").textContent = results.join("\n");
+      });
+      project.src = "feetmine.html";
     });
   </script>
 </body>

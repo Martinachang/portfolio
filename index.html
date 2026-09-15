@@ -4,14 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chang Chu-Pei 張主佩, UI/UX designer and researcher</title>
-  <meta name="description" content="Portfolio of Chang Chu-Pei, UI/UX designer and researcher in Taipei. Case study: FeetMine, a parent-child shoe-selection app.">
+  <meta name="description" content="Portfolio of Chang Chu-Pei, UI/UX designer and researcher in Taipei.">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Every element with data-text="a.b.c" gets its words from content.js.
-       Lists (timeline, tabs, quotes, skills) are drawn by script.js into the empty elements with an id. -->
+  <!-- The home page: the desk, the list of projects, and the profile (about, skills, contact).
+       Every element with data-text="a.b.c" gets its words from content.js.
+       Lists (project cards, timeline, skills) are drawn by home.js into the empty elements with an id. -->
 
   <a class="skip" href="#work" data-text="site.skip"></a>
 
@@ -41,11 +42,12 @@
         </div>
 
         <div class="desk-objects">
+          <!-- The folder shows the newest project (the first one in content.js). The mascot is a sticker. -->
           <a class="object folder" href="#work" draggable="false">
-            <span class="folder-tab" data-text="desk.folder.tab"></span>
+            <span class="folder-tab" data-text="work.title"></span>
             <span class="folder-title" data-text="project.name"></span>
             <span class="folder-title" data-text="project.nameZh"></span>
-            <span class="folder-caption" data-text="desk.folder.caption"></span>
+            <span class="folder-caption" data-text="project.summary"></span>
             <img class="folder-mascot" src="img/mascot.jpg" width="251" height="300" alt="" draggable="false">
           </a>
 
@@ -71,32 +73,12 @@
       </div>
     </section>
 
-    <!-- Work: the FeetMine case study. -->
-    <section id="work" class="section project" aria-labelledby="project-name">
+    <!-- Work: one card per project. Each card links to the project's own page. -->
+    <section id="work" class="section" aria-labelledby="work-title">
       <div class="wrap">
-        <div class="project-head">
-          <div>
-            <h2 id="project-name"><span data-text="project.name"></span> <span class="zh-name" data-text="project.nameZh"></span></h2>
-            <p class="tagline" data-text="project.tagline"></p>
-            <ul class="tags" id="project-tags"></ul>
-            <dl class="facts" id="project-facts"></dl>
-          </div>
-          <figure class="cover"><img src="img/feetmine-cover.jpg" width="995" height="1200" loading="lazy" data-alt="project.coverAlt" alt=""></figure>
-        </div>
-
-        <!-- The quote demo. -->
-        <div class="insights">
-          <h3 data-text="project.insights.title"></h3>
-          <p data-text="project.insights.lead"></p>
-          <div class="insights-grid">
-            <div class="quotes" id="quotes"></div>
-            <div class="decision" id="decision" aria-live="polite"></div>
-          </div>
-        </div>
-
-        <!-- The phases, one tab each. -->
-        <div class="tabs" role="tablist" id="tablist"></div>
-        <div id="panels"></div>
+        <h2 id="work-title" data-text="work.title"></h2>
+        <p class="lead" data-text="work.lead"></p>
+        <div class="work-grid" id="work-grid"></div>
       </div>
     </section>
 
@@ -150,6 +132,7 @@
   <footer><p data-text="site.footer"></p></footer>
 
   <script src="content.js"></script>
-  <script src="script.js"></script>
+  <script src="site.js"></script>
+  <script src="home.js"></script>
 </body>
 </html>

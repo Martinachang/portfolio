@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FeetMine 合步合腳, a case study by Chang Chu-Pei</title>
+  <meta name="description" content="FeetMine: a parent-child shoe-selection app. UX research, prototyping and usability testing by Chang Chu-Pei.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-project="feetmine">
+  <!-- A case-study page. data-project above names the entry in content.js that fills this page.
+       To add a project: copy this file, change data-project, and add the entry to content.js. -->
+
+  <a class="skip" href="#study" data-text="site.skip"></a>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><span data-text="site.name"></span> <small data-text="site.nameOther"></small></a>
+    <div class="lang" role="group" aria-label="Language / 語言">
+      <button type="button" data-lang="en" lang="en">EN</button>
+      <button type="button" data-lang="zh" lang="zh-Hant">中文</button>
+    </div>
+    <nav>
+      <a href="index.html#work" data-text="site.nav.work"></a>
+      <a href="index.html#about" data-text="site.nav.about"></a>
+      <a href="index.html#skills" data-text="site.nav.skills"></a>
+      <a href="index.html#contact" data-text="site.nav.contact"></a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="study" class="section project" aria-labelledby="project-name">
+      <div class="wrap">
+        <a class="back" href="index.html#work" data-text="work.all"></a>
+
+        <div class="project-head">
+          <div>
+            <h2 id="project-name"><span data-text="project.name"></span> <span class="zh-name" data-text="project.nameZh"></span></h2>
+            <p class="tagline" data-text="project.tagline"></p>
+            <ul class="tags" id="project-tags"></ul>
+            <dl class="facts" id="project-facts"></dl>
+          </div>
+          <figure class="cover"><img id="cover" alt=""></figure>
+        </div>
+
+        <!-- The quote demo: what one person said, and what changed because of it. -->
+        <div class="insights">
+          <h3 data-text="project.insights.title"></h3>
+          <p data-text="project.insights.lead"></p>
+          <div class="insights-grid">
+            <div class="quotes" id="quotes"></div>
+            <div class="decision" id="decision" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- The phases, one tab each. -->
+        <div class="tabs" role="tablist" id="tablist"></div>
+        <div id="panels"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p data-text="site.footer"></p></footer>
+
+  <script src="content.js"></script>
+  <script src="site.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>
