@@ -30,33 +30,15 @@
   </header>
 
   <main>
-    <section id="study" class="section project" aria-labelledby="project-name">
+    <section id="study" class="section project">
       <div class="wrap">
         <a class="back" href="index.html#work" data-text="work.all"></a>
 
-        <div class="project-head">
-          <div>
-            <h2 id="project-name"><span data-text="project.name"></span> <span class="zh-name" data-text="project.nameZh"></span></h2>
-            <p class="tagline" data-text="project.tagline"></p>
-            <ul class="tags" id="project-tags"></ul>
-            <dl class="facts" id="project-facts"></dl>
-          </div>
-          <figure class="cover"><img id="cover" alt=""></figure>
-        </div>
+        <figure class="cover"><img id="cover" alt=""></figure>
 
-        <!-- The quote demo: what one person said, and what changed because of it. -->
-        <div class="insights">
-          <h3 data-text="project.insights.title"></h3>
-          <p data-text="project.insights.lead"></p>
-          <div class="insights-grid">
-            <div class="quotes" id="quotes"></div>
-            <div class="decision" id="decision" aria-live="polite"></div>
-          </div>
-        </div>
-
-        <!-- The phases, one tab each. -->
-        <div class="tabs" role="tablist" id="tablist"></div>
-        <div id="panels"></div>
+        <!-- The phases, one after another. The links glide to each one. -->
+        <nav class="phase-nav" id="phase-nav"></nav>
+        <div id="phases"></div>
       </div>
     </section>
   </main>

@@ -37,7 +37,7 @@
         check("the work list has a card that links to the project page", card !== null && card.getAttribute("href") === "feetmine.html");
         check("the card shows the project's headline and stats", card.querySelector("h3").textContent.includes("foot profile") && card.querySelectorAll(".stats dd").length === 2);
         check("the headline has its coloured words and the process has three steps", $("#headline em") !== null && doc.querySelectorAll(".steps > li").length === 3);
-        check("the note and the tool chips show their logos", doc.querySelectorAll(".note-logos img").length === 6 && doc.querySelectorAll(".steps .tags img").length === 9);
+        check("the note and the tool chips show their logos", doc.querySelectorAll(".note-logos img").length === 6 && doc.querySelectorAll(".steps .tags img").length === 8);
 
         // 3. Desk drag
         const folder = $(".folder");
@@ -71,15 +71,12 @@
         const doc = win.document;
         const $ = (selector) => doc.querySelector(selector);
         try {
-          // 4. Quote demo
-          doc.querySelectorAll(".quote")[2].click();
-          check("clicking a quote shows its decision",
-            $("#decision h4").textContent.includes("coin") && doc.querySelectorAll(".quote")[2].getAttribute("aria-pressed") === "true");
-
-          // 5. Phase tabs
-          $("#tablist").dispatchEvent(new win.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
-          check("right arrow opens the next phase",
-            $("#tab-1").getAttribute("aria-selected") === "true" && !$("#panel-1").hidden && $("#panel-0").hidden);
+          // 5. Phases: all on the page, every slide opens full size, and the links at the top point at them
+          const phases = doc.querySelectorAll(".phase").length;
+          check("every phase and every slide is on the page, slides 6 to 19 of the deck",
+            phases === 6 && doc.querySelectorAll("#phase-nav a").length === phases && doc.querySelectorAll('.figures a[target="_blank"] img[src^="img/feetmine-"]').length === 14);
+          check("the phase links point at the phases", $('#phase-nav a[href="#phase-1"]') !== null && $("#phase-1") !== null);
+          check("only the overview phase has text, the others are slides alone", doc.querySelectorAll(".points").length === 1 && $("#phase-0 .points") !== null);
         } catch (error) {
           results.push("FAIL  " + error);
         }
